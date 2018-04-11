@@ -23,7 +23,7 @@ AL_kQVGA = 1            # 320x240: use this to change the resolution allowed for
 AL_kBGRColorSpace = 13  # This is like a filter, change value to numbers 1-13
 
 captureDevice = videoDevice.subscribeCamera(
-    "Gus08", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 10) # This tells the computer what should be displayed to us
+    "Gus10", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 10) # This tells the computer what should be displayed to us
 
 # create image
 width = 320
