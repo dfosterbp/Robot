@@ -1,6 +1,7 @@
 # vim: set fileencoding=utf-8 :
 import sys
 import numpy as np
+import argparse
 import cv2
 from naoqi import ALProxy
 
@@ -28,17 +29,6 @@ captureDevice = videoDevice.subscribeCamera(
 width = 320
 height = 240
 image = np.zeros((height, width, 3), np.uint8)
-
-imageR = cv2.imread("image.png")
-
-lower = np.array([50,10,0], dtype = "uint8")
-upper = np.array([220,88,50], dtype = "uint8")
-
-mask =cv2.inRange(image, lower, upper)
-output = cv2.bitwise_and(image, image, mask = mask)
-
-cv2.imshow("images", np.hstack([image, output]))
-cv2.waitKey(0)
 
 while True:
 
