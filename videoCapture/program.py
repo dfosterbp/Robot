@@ -23,7 +23,7 @@ AL_kQVGA = 1            # 320x240: use this to change the resolution allowed for
 AL_kBGRColorSpace = 13  # This is like a filter, change value to numbers 1-13
 
 captureDevice = videoDevice.subscribeCamera(
-    "test", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 10) # This tells the computer what should be displayed to us
+    "Gus01", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 10) # This tells the computer what should be displayed to us
 
 # create image
 width = 320
@@ -53,7 +53,21 @@ while True:
                 i += 3
 
         # show image
-        cv2.imshow("pepper-top-camera-320x240", image)
+        img = cv2.imread('binderHD.jpg')
+
+        boundaries = [
+                ([60, 20, 20], [100, 60, 60])
+        ]
+
+        for (lower, upper) in boundaries:
+            lower = np.array(lower, dtype = "uint8")
+            upper = np.array(upper, dtype = "uint8")
+        mask = cv2.inRange(img, lower, upper)
+        output = cv2.bitwise_and(img, img, mask = mask)
+
+        cv2.imshow("images", np.hstack([image, output]))
+        cv2.waitKey(0)
+
 
     # exit by pressing [ESC]
     if cv2.waitKey(33) == 27:
