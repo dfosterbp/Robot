@@ -8,6 +8,17 @@ import cv2
 #ap.add_argument("-i", "--image", help = "path to the image")
 #args = vars(ap.parse_args())
 
+ip_addr = "172.17.21.168"
+
+robotVoice = ALProxy("ALTextToSpeech", ip_addr, 9559)
+#robotVoice.say("Hello, World!")
+robotPose = ALProxy("ALRobotPosture", ip_addr, 9559)
+#robotPose.goToPosture("Stand", 1)
+robotNav = ALProxy("ALNavigation", ip_addr, 9559)
+robotVideoDevice = ALProxy("ALVideoDevice", ip_addr, 9559)
+robotSonar = ALProxy("ALSonar", ip_addr, 9559)
+robotSonar.subscribe("NAO_Program")
+
 img = cv2.imread('stopSign.jpg')
 '''
 boundaries = [
@@ -46,8 +57,8 @@ cv2.waitKey(0)
 #cv2.waitKey(0)
 #cv2.destroyAllWindows()
 
-#tts = ALProxy("ALTextToSpeech", "172.17.21.168", 9559)
-#pose = ALProxy("ALRobotPosture", "172.17.21.168", 9559)
-#motion = ALProxy("ALMotion", "172.17.21.168", 9559)
+#tts = ALProxy("ALTextToSpeech", ip_addr, 9559)
+#pose = ALProxy("ALRobotPosture", ip_addr, 9559)
+#motion = ALProxy("ALMotion", ip_addr, 9559)
 #pose.goToPosture("Stand",1)
 #motion.moveTo(0.5, 0, 0)
