@@ -23,7 +23,7 @@ AL_kQVGA = 1            # 320x240: use this to change the resolution allowed for
 AL_kBGRColorSpace = 13  # This is like a filter, change value to numbers 1-13
 
 captureDevice = videoDevice.subscribeCamera(
-    "Gus01", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 10) # This tells the computer what should be displayed to us
+    "Gus04", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 10) # This tells the computer what should be displayed to us
 
 # create image
 width = 320
@@ -56,7 +56,7 @@ while True:
         img = cv2.imread('binderHD.jpg')
 
         boundaries = [
-                ([60, 20, 20], [100, 60, 60])
+            ([60, 20, 20], [100, 60, 60])
         ]
 
         for (lower, upper) in boundaries:
