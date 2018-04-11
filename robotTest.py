@@ -17,4 +17,4 @@ output = cv2.bitwise_and(img, img, mask = mask)
 
 cv2.imshow("images", np.hstack([img, output]))
 cv2.waitKey(0)
-#hey from gus’s phone
+#hey
