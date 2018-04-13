@@ -23,7 +23,7 @@ AL_kQVGA = 1            # 320x240: use this to change the resolution allowed for
 AL_kBGRColorSpace = 13  # This is like a filter, change value to numbers 1-13
 
 captureDevice = videoDevice.subscribeCamera(
-    "Gus35", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 60) # This tells the computer what should be displayed to us
+    "Gus37", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 60) # This tells the computer what should be displayed to us
 
 # create image
 width = 320
@@ -55,18 +55,19 @@ while True:
         # show image
 
         boundaries = [
-            ([40, 0, 32], [255, 40, 40])
+                #([0,0,0],[36,25,25]),
+                ([35, 20, 20], [55, 40, 35])
+                #([53,37,30], [255,255,255])
         ]
 
-        image -= 255
-        
         for (lower, upper) in boundaries:
             lower = np.array(lower, dtype = "uint8")
             upper = np.array(upper, dtype = "uint8")
         mask = cv2.inRange(image, lower, upper)
         output = cv2.bitwise_and(image, image, mask = mask)
-        gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-        _, threshold_img = cv2.threshold(gray_img, 60, 255, cv2.THRESH_BINARY)
+        gray_img = cv2.cvtColor(output, cv2.COLOR_RGB2GRAY)
+        _, threshold_img = cv2.threshold(gray_img, 60, 255, cv2.THRESH_OTSU)
+        _, threshold_img = cv2.threshold(threshold_img, 60, 255, cv2.THRESH_BINARY_INV)
         threshold_img = cv2.cvtColor(threshold_img, cv2.COLOR_GRAY2RGB)
 
         
