@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import numpy as np
 import cv2
 
@@ -33,12 +32,3 @@ keypoints = detector.detect(im)
 im_with_keypoints = cv2.drawKeypoints(im, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 cv2.imshow("Keypoints", im_with_keypoints)
 cv2.waitKey(0)
-=======
-from naoqi import ALProxy
-
-motion = ALProxy("ALMotion", "10.45.76.171", 9559)
-motion.moveTo(7,0,0)
-
-pose = ALProxy("ALRobotPosture", "10.45.76.171", 9559)
-pose.goToPosture("Stand",1)
->>>>>>> 6004fd64dcdd56f9a0b9f9edd9e6e1d2c0347054

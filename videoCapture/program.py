@@ -23,7 +23,7 @@ AL_kQVGA = 1            # 320x240: use this to change the resolution allowed for
 AL_kBGRColorSpace = 13  # This is like a filter, change value to numbers 1-13
 
 captureDevice = videoDevice.subscribeCamera(
-    "Gus38", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 60) # This tells the computer what should be displayed to us
+    "Gus42", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 60) # This tells the computer what should be displayed to us
 
 # create image
 width = 320
@@ -66,13 +66,31 @@ while True:
         mask = cv2.inRange(image, lower, upper)
         output = cv2.bitwise_and(image, image, mask = mask)
         gray_img = cv2.cvtColor(output, cv2.COLOR_RGB2GRAY)
-        _, threshold_img = cv2.threshold(gray_img, 60, 255, cv2.THRESH_OTSU)
-        _, threshold_img = cv2.threshold(threshold_img, 60, 255, cv2.THRESH_BINARY_INV)
+        _, threshold_img = cv2.threshold(gray_img, 60, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY_INV)
         threshold_img = cv2.cvtColor(threshold_img, cv2.COLOR_GRAY2RGB)
 
-        
-        cv2.imshow("images", threshold_img)
-        
+        params = cv2.SimpleBlobDetector_Params()
+
+        params.minThreshold = 0;
+        params.maxThreshold = 255;
+
+        params.filterByArea = True
+        params.minArea = 100
+        params.maxArea = sys.maxint
+
+        params.filterByCircularity = True
+        params.minCircularity = 0.1
+
+        params.filterByConvexity = False
+        params.filterByInertia = False
+
+
+        detector = cv2.SimpleBlobDetector.create(params)
+
+        keypoints = detector.detect(threshold_img)
+        im_with_keypoints = cv2.drawKeypoints(threshold_img, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+        cv2.imshow("Keypoints", im_with_keypoints)
+                
 
 
     # exit by pressing [ESC]
