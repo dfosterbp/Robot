@@ -41,7 +41,7 @@ _, contours, hierarchy = cv2.findContours(medianFiltered, cv2.RETR_TREE, cv2.CHA
 contour_list = []
 for contour in contours:
     area = cv2.contourArea(contour)
-    if area > 200 and area < 4000 :
+    if area > 10000 and area < 20000  :
         contour_list.append(contour)
 cv2.drawContours(rawImage, contour_list, -1, (255, 0, 0), 2)
 
