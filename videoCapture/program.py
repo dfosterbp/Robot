@@ -23,7 +23,7 @@ AL_kQVGA = 1            # 320x240: use this to change the resolution allowed for
 AL_kBGRColorSpace = 13  # This is like a filter, change value to numbers 1-13
 
 captureDevice = videoDevice.subscribeCamera(
-    "Gus37", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 60) # This tells the computer what should be displayed to us
+    "Gus38", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 60) # This tells the computer what should be displayed to us
 
 # create image
 width = 320
@@ -72,6 +72,7 @@ while True:
 
         
         cv2.imshow("images", threshold_img)
+        
 
 
     # exit by pressing [ESC]
