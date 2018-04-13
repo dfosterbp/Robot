@@ -23,7 +23,7 @@ AL_kQVGA = 1            # 320x240: use this to change the resolution allowed for
 AL_kBGRColorSpace = 13  # This is like a filter, change value to numbers 1-13
 
 captureDevice = videoDevice.subscribeCamera(
-    "Gus37", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 60) # This tells the computer what should be displayed to us
+    "Gus38", AL_kTopCamera, AL_kQVGA, AL_kBGRColorSpace, 60) # This tells the computer what should be displayed to us
 
 # create image
 width = 320
@@ -54,44 +54,25 @@ while True:
 
         # show image
 
-        #boundaries = [
+        boundaries = [
                 #([0,0,0],[36,25,25]),
-        #        ([35, 20, 20], [55, 40, 35])
+                ([35, 20, 20], [55, 40, 35])
                 #([53,37,30], [255,255,255])
-        #]
+        ]
 
-        #for (lower, upper) in boundaries:
-        #    lower = np.array(lower, dtype = "uint8")
-        #    upper = np.array(upper, dtype = "uint8")
-        #mask = cv2.inRange(image, lower, upper)
-        #output = cv2.bitwise_and(image, image, mask = mask)
-        #gray_img = cv2.cvtColor(output, cv2.COLOR_RGB2GRAY)
-        #_, threshold_img = cv2.threshold(gray_img, 60, 255, cv2.THRESH_OTSU)
-        #_, threshold_img = cv2.threshold(threshold_img, 60, 255, cv2.THRESH_BINARY_INV)
-        #threshold_img = cv2.cvtColor(threshold_img, cv2.COLOR_GRAY2RGB)
+        for (lower, upper) in boundaries:
+            lower = np.array(lower, dtype = "uint8")
+            upper = np.array(upper, dtype = "uint8")
+        mask = cv2.inRange(image, lower, upper)
+        output = cv2.bitwise_and(image, image, mask = mask)
+        gray_img = cv2.cvtColor(output, cv2.COLOR_RGB2GRAY)
+        _, threshold_img = cv2.threshold(gray_img, 60, 255, cv2.THRESH_OTSU)
+        _, threshold_img = cv2.threshold(threshold_img, 60, 255, cv2.THRESH_BINARY_INV)
+        threshold_img = cv2.cvtColor(threshold_img, cv2.COLOR_GRAY2RGB)
 
         
-        #cv2.imshow("images", threshold_img)
-        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-
-        hue, saturation, value = cv2.split(hsv)
-
-        retval, threshold, = cv2.threshold(saturation, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-        medianFiltered = cv2.medianBlur(threshold, 5)
-
-        _, contours, hierarchy = cv2.findContours(medianFiltered, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-        contour_list = []
-        for contour in contours:
-            area = cv2.contourArea(contour)
-            if area > 10000 and area < 20000  :
-                contour_list.append(contour)
-        cv2.drawContours(image, contour_list, -1, (255, 0, 0), 2)
-
-
-        cv2.imshow('IMAGE', image)
-        cv2.waitKey(0)
+        cv2.imshow("images", threshold_img)
+        
 
 
     # exit by pressing [ESC]
